@@ -1,0 +1,22 @@
+﻿@page "/calendar"
+@using Google.Apis.Calendar.v3.Data
+@inject Calendar CalendarService
+
+<h3>Calendar events</h3>
+
+<ul>
+    @foreach (var evt in events) 
+    {
+        <li>@evt.Summary - @evt.Start.DateTime</li>
+    }
+
+</ul>
+
+@code {
+    private IList<Event> events;
+
+    protected override async Task OnInitialAsync()
+    {
+        events = await CalendarService.GetEventsAsync();
+    }
+}
